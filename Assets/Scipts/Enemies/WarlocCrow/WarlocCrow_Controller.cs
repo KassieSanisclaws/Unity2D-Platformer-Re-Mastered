@@ -44,7 +44,7 @@ public class WarlocCrow_Controller : MonoBehaviour
             }
 
             _walkDirection = value;
-        }
+        } 
     }
 
     public bool _hasTarget = false;

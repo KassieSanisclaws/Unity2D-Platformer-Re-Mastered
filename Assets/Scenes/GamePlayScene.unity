@@ -122901,6 +122901,10 @@ PrefabInstance:
       propertyPath: attackZone
       value: 
       objectReference: {fileID: 1737492474}
+    - target: {fileID: 8791762931463514652, guid: 93985e3328f6a8947a5a55bce4a78142, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
