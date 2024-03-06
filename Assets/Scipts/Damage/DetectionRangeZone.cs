@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class DetectionRangeZone : MonoBehaviour
 {
+    public event System.Action<bool> PlayerDetected;
 
-    public List<Collider2D> detectedColliders = new List<Collider2D>();
+    public List<Collider2D> detectedColliders = new();
     private Collider2D col;  
 
 
@@ -17,12 +18,22 @@ public class DetectionRangeZone : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         detectedColliders.Add(collision);
+
+        if (collision.CompareTag("Player"))
+        {
+            PlayerDetected?.Invoke(true);
+        }
     }
 
     // Update is called once per frame
     private void OnTriggerExit2D(Collider2D collision)
     {
         detectedColliders.Remove(collision);
+
+        if (collision.CompareTag("Player"))
+        {
+            PlayerDetected?.Invoke(false);
+        }
     }
 
 }

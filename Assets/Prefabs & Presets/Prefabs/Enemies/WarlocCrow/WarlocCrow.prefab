@@ -91,6 +91,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectedColliders: []
+--- !u!1 &1610726323390201420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8285030418655554893}
+  m_Layer: 7
+  m_Name: MagicShots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8285030418655554893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610726323390201420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.78, y: 1.35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 425816151725302396}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5917985393015038969
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +137,7 @@ GameObject:
   - component: {fileID: 8749516198890693413}
   - component: {fileID: 3110916054587690332}
   - component: {fileID: 8563034803703705996}
+  - component: {fileID: 673456996793201411}
   m_Layer: 7
   m_Name: WarlocCrow
   m_TagString: Enemy
@@ -127,6 +159,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7644233325496466713}
+  - {fileID: 8285030418655554893}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8791762931463514652
@@ -172,7 +205,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4efb8e4cad874ec49a4ff49e7d887622, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 4, y: 4}
@@ -320,10 +353,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   walkStopRate: 0.6
-  attackZone: {fileID: 0}
+  attackZone: {fileID: 8982807642839412428}
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 0}
   shootIntervals: 2
   rb: {fileID: 0}
   walkDirectionVector: {x: 0, y: 0}
   _hasTarget: 0
+--- !u!114 &673456996793201411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5917985393015038969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8952b3a21e76a048a6791caab33300a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

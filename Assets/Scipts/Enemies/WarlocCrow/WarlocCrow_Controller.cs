@@ -10,6 +10,11 @@ public class WarlocCrow_Controller : MonoBehaviour
     public GameObject projectilePrefab;
     public Transform shootPoint;
     public float shootIntervals = 2f;
+    public GameObject magicBlastPrefab;
+    public Transform magicBlastSpawnPoint;
+    public float magicBlastInterval = 3f;
+
+    private bool playerDetected = false;
 
     public Rigidbody2D rb;
     TouchingDirections td;
@@ -118,12 +123,37 @@ public class WarlocCrow_Controller : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    private void OnPlayerDetected(bool detected)
     {
-        if (HasTarget)
+        playerDetected = detected;
+
+        if (detected)
         {
-            Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
-            // Add sound effects or animations here:
+            // Start firing magic blasts when player is detected
+            InvokeRepeating(nameof(FireMagicBlast), 0, magicBlastInterval);
+        }
+        else
+        {
+            // Stop firing magic blasts when player is not detected
+            CancelInvoke(nameof(FireMagicBlast));
         }
     }
+
+    // Existing methods...
+
+    private void FireMagicBlast()
+    {
+        // Instantiate magic blast at the magicBlastSpawnPoint
+        Instantiate(magicBlastPrefab, magicBlastSpawnPoint.position, Quaternion.identity);
+        // Add sound effects or animations here if needed
+    }
+
+    //private void Shoot()
+    //{
+    //    if (HasTarget)
+    //    {
+    //        Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+    //        // Add sound effects or animations here:
+    //    }
+    //}
 }
