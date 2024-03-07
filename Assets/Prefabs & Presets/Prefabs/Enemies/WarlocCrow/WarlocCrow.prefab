@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 8749516198890693413}
   - component: {fileID: 3110916054587690332}
   - component: {fileID: 8563034803703705996}
-  - component: {fileID: 673456996793201411}
   m_Layer: 7
   m_Name: WarlocCrow
   m_TagString: Enemy
@@ -357,18 +356,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   shootPoint: {fileID: 0}
   shootIntervals: 2
+  magicBlastPrefab: {fileID: 0}
+  magicBlastSpawnPoint: {fileID: 0}
+  magicBlastInterval: 3
   rb: {fileID: 0}
   walkDirectionVector: {x: 0, y: 0}
   _hasTarget: 0
---- !u!114 &673456996793201411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5917985393015038969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8952b3a21e76a048a6791caab33300a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

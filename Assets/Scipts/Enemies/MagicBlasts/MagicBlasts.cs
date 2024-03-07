@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class MagicBlasts : MonoBehaviour
@@ -7,9 +8,10 @@ public class MagicBlasts : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rb;
     public float force;
+    private float timer;
 
     //Start is called before the first frame update
-     void Start()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +26,20 @@ public class MagicBlasts : MonoBehaviour
     //Update is called once per frame
      void Update()
     {
-        
+        timer += Time.deltaTime;
+
+        if (timer >= 5)
+        {
+            Destroy(gameObject);
+        }
     }
-    
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //collision.gameObject.GetComponent<PlayerHealth>().health  ;
+            Destroy(gameObject);
+        }
+    }
 }
