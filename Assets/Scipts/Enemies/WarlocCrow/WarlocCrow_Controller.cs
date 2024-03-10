@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -146,6 +147,11 @@ public class WarlocCrow_Controller : MonoBehaviour
         // Instantiate magic blast at the magicBlastSpawnPoint
         Instantiate(magicBlastPrefab, magicBlastSpawnPoint.position, Quaternion.identity);
         // Add sound effects or animations here if needed
+    }
+
+    internal void TakeDamage(int v)
+    {
+        throw new NotImplementedException();
     }
 
     //private void Shoot()

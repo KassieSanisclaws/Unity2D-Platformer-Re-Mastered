@@ -1,18 +1,27 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
     //Singleton Pattern
     public static GameManager Instance => _instance;
     static GameManager _instance;
+   
+
+    [SerializeField] PlayerController playerPrefab;
+    public PlayerController PlayerInstance => _playerInstance;
+    PlayerController _playerInstance = null;
+    Transform currentSpawnpoint;
+    public CinemachineVirtualCamera virtualCamera; //Reference to the virtual camera in the scene.
+
+
+    private int maxPlayerLives = 3;
     public int testScore = 1000;
-
-
-    private readonly int maxPlayerLives;
-
     public int playerLives = 3;
     //Player lives code with encapsulation loads the game over scene when the player lives are less than or equal to 0
     public int PlayerLives
@@ -38,13 +47,13 @@ public class GameManager : MonoBehaviour
                 playerLives = 0;
                 //Game Over
                 SceneManager.LoadScene("GameOverScene");
+                GameOver();
             }
         }
     }
 
     //Player Score code with encapsulation
     public int playerScore = 0;
- 
 
     public int PlayerScore
     {
@@ -60,15 +69,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        if (_instance == null)
+        if (_instance)
         {
+           Destroy(gameObject);
+           return;
+        }
+       
             _instance = this;
             DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+            playerLives = maxPlayerLives;
+
         //Load Static Scene before the game starts
         //SceneManager.LoadScene("StaticScene", LoadSceneMode.Additive);
         //SceneManager.LoadScene("UI", LoadSceneMode.Additive);
@@ -88,13 +98,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Respawn()
+    //Function to Update Checkpoint:  when first load into the level works but whe  you click escape
+    public void UpdateCheckPoint(Transform updatedCheckPoint)
     {
-
+        currentSpawnpoint = updatedCheckPoint;
     }
 
-    void GamneOver()
+    //Function To Spawn Player:
+    public void SpawnPlayer(Transform spawnLocation)
     {
+        _playerInstance = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
+        currentSpawnpoint = spawnLocation;
+       
+        Debug.LogWarning("ParallaxController not assigned in the GameManager. Make sure to assign it in the inspector.");
+    }
 
+    //Function to Respawn Player:
+    void Respawn()
+    {
+        Debug.Log("Respawn Called");
+
+        _playerInstance.transform.position = currentSpawnpoint.position;
+    }
+
+    //Function to Game Over:
+    void GameOver()
+    {
+       Debug.Log("Game Over Called");
     }
 }

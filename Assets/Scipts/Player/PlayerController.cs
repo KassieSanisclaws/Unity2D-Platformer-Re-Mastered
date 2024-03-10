@@ -269,4 +269,31 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyProjectile"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.Instance.PlayerLives--;
+        }
+
+        //GameObject Eneimies Takeing damage from player:
+        //if (collision.gameObject.CompareTag("Enemy"))
+        //{
+        //    collision.transform.parent.gameObject.GetComponent<WarlocCrow_Controller>().TakeDamage(1);
+        //    Destroy(collision.gameObject);
+        //}
+
+
+        //if (collision.gameObject.CompareTag("Diamond"))
+        //{
+        //    //Animation for Diamonds being collected and destroyed.
+        //    animate.SetTrigger("Collect");
+
+        //    //Destroy the diamon when player object comes into contact/touches/collides:
+        //    Destroy(collision.gameObject);
+        //}
+    }
+    
 }
