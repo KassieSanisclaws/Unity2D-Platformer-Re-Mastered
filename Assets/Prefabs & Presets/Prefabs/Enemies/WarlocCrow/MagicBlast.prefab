@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4639356224717634115}
   m_Layer: 0
   m_Name: MagicBlast
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8952b3a21e76a048a6791caab33300a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 0
+  lifeTime: 0
+  initVelocity: {x: 0, y: 0}
 --- !u!50 &4677651934697698710
 Rigidbody2D:
   serializedVersion: 4
