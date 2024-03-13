@@ -8,6 +8,7 @@ public class TouchingDirections : MonoBehaviour
     public float groundDistance = 0.05f;
     public float wallDistance = 0.2f;
     public float ceilingDistance = 0.05f;
+    public float barrierDistance = 0.05f;
 
     BoxCollider2D touchCol;
     Animator animator;
@@ -15,6 +16,7 @@ public class TouchingDirections : MonoBehaviour
     readonly RaycastHit2D[] groundHits = new RaycastHit2D[5];
     readonly RaycastHit2D[] wallHits = new RaycastHit2D[5];
     readonly RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
+    readonly RaycastHit2D[] barrierHits = new RaycastHit2D[1];
 
     [SerializeField] private bool _isGrounded;
 
@@ -44,6 +46,7 @@ public class TouchingDirections : MonoBehaviour
 
     [SerializeField] private bool _isOnCeiling;
     private Vector2 WallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+    
 
     public bool IsOnCeiling 
     {
@@ -54,6 +57,19 @@ public class TouchingDirections : MonoBehaviour
           _isOnCeiling = value;
           animator.SetBool(AnimationVariable_Strings.AnimationVariable.ISONCEILING, value);
         } 
+    }
+
+    private Vector2 BarrierCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.left : Vector2.right;
+    [SerializeField] private bool _isBarrier;
+    public bool IsBarrier
+    {
+        get { return _isBarrier;  }
+
+        private set
+        {
+            _isBarrier = value;
+            animator.SetBool(AnimationVariable_Strings.AnimationVariable.ISBARRIER, value);
+        }
     }
 
     // Start is called before the first frame update
@@ -69,5 +85,6 @@ public class TouchingDirections : MonoBehaviour
         IsGrounded = touchCol.Cast(Vector2.down, castFilter, groundHits, groundDistance) > 0;
         IsOnWall = touchCol.Cast(WallCheckDirection, castFilter, wallHits, wallDistance) > 0;
         IsOnCeiling = touchCol.Cast(Vector2.up, castFilter, ceilingHits, ceilingDistance) > 0;
+        IsBarrier = touchCol.Cast(BarrierCheckDirection, castFilter, barrierHits, barrierDistance) > 0;
     }
 }

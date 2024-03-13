@@ -21,5 +21,7 @@ internal class AnimationVariable_Strings
         internal static string PLAYERCANMOVE = "playerCanMove";
         internal static string HASTARGETINRANGE = "hasTargetInRange";
         internal static string ENEMYCANMOVE = "enemyCanMove";
+        internal static string ISDEAD = "isDead";
+        internal static string ISBARRIER = "isBarrier";
     }
 }

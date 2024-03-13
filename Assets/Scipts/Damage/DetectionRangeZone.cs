@@ -7,7 +7,7 @@ public class DetectionRangeZone : MonoBehaviour
     public event System.Action<bool> PlayerDetected;
 
     public List<Collider2D> detectedColliders = new();
-    private Collider2D col;  
+    public Collider2D col;  
 
 
     private void Awake()

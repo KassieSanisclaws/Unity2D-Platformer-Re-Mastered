@@ -13,7 +13,7 @@ public class ParallaxController : MonoBehaviour
     private Transform playerTransform; //Stores player tarnsform from GameManager.
 
     //Flag to track if initializedation is done:
-     private bool isInitialized = false;
+     public bool isInitialized = false;
 
     //Starting Position for the parallax gameObject:
       Vector2 canvas_StartPosition;
@@ -58,32 +58,32 @@ public class ParallaxController : MonoBehaviour
         }
 
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-     //Get player transform from GameManager:
-         if(GameManager.Instance != null && GameManager.Instance.PlayerInstance != null)
-        {
-            playerTransform = GameManager.Instance.PlayerInstance.transform;
+    //void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    // //Get player transform from GameManager:
+    //     if(GameManager.Instance != null && GameManager.Instance.PlayerInstance != null)
+    //    {
+    //        playerTransform = GameManager.Instance.PlayerInstance.transform;
 
-       // Check if virtual camera is assigned in GameManager
-        if (GameManager.Instance.virtualCamera != null)
-        {
-            // Assign player prefab to the virtual camera's follow target
-            GameManager.Instance.virtualCamera.Follow = GameManager.Instance.PlayerInstance.transform;
-        }
-        else
-        {
-            Debug.LogError("Virtual camera not assigned to GameManager!");
-        }
+    //   // Check if virtual camera is assigned in GameManager
+    //    if (GameManager.Instance.virtualCamera != null)
+    //    {
+    //        // Assign player prefab to the virtual camera's follow target
+    //        GameManager.Instance.virtualCamera.Follow = GameManager.Instance.PlayerInstance.transform;
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Virtual camera not assigned to GameManager!");
+    //    }
 
-      //Set initialization flag to true:
-        isInitialized = true;
-      }
-        else
-        {
-            Debug.LogError("GameManager or PlayerInstance is not initialized!");
-        }
-    }
+    //  //Set initialization flag to true:
+    //    isInitialized = true;
+    //  }
+    //    else
+    //    {
+    //        Debug.LogError("GameManager or PlayerInstance is not initialized!");
+    //    }
+    //}
 
     // Update is called once per frame
     void Update()
