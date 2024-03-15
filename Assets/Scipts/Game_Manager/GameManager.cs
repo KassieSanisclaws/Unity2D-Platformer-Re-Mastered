@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,10 +20,13 @@ public class GameManager : MonoBehaviour
     Transform currentSpawnpoint;
     public CinemachineVirtualCamera virtualCamera; //Reference to the virtual camera in the scene.
 
+    public UnityEvent<int> OnLifeValueChanged;
 
-    private int maxPlayerLives = 3;
+    private readonly int maxPlayerLives = 3;
     public int testScore = 1000;
     public int playerLives = 3;
+   
+
     //Player lives code with encapsulation loads the game over scene when the player lives are less than or equal to 0
     public int PlayerLives
     {
@@ -96,6 +100,17 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(buildIndex);
             //Application.Quit();
         }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UpdateCheckpoint(GameObject.FindGameObjectWithTag("Test").transform);
+        }
+    }
+
+    //Function to Change Scene:
+    public void ChangeScene(int buildIndex)
+    {
+        SceneManager.LoadScene(buildIndex);
     }
 
     //Function to Update Checkpoint:  when first load into the level works but whe  you click escape
@@ -111,6 +126,13 @@ public class GameManager : MonoBehaviour
         currentSpawnpoint = spawnLocation;
        
         Debug.LogWarning("ParallaxController not assigned in the GameManager. Make sure to assign it in the inspector.");
+    }
+
+    //Function to Update Checkpoint:
+    public void UpdateCheckpoint(Transform updatedCheckPoint)
+    {
+        Debug.Log("Updated Checkpoint");
+        currentSpawnpoint = updatedCheckPoint;
     }
 
     //Function to Respawn Player:
