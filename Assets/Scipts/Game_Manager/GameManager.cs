@@ -22,36 +22,39 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent<int> OnLifeValueChanged;
 
-    private readonly int maxPlayerLives = 3;
+    [SerializeField] int maxLives = 5;
     public int testScore = 1000;
-    public int playerLives = 3;
+    private int _lives;
    
 
     //Player lives code with encapsulation loads the game over scene when the player lives are less than or equal to 0
-    public int PlayerLives
+    public int Lives
     {
-        get { return playerLives; }
+        get { return _lives; }
         set
         {
-            if (playerLives > value)
+            if (_lives > value)
             {
                  Respawn();
             }
 
 
-            playerLives = value;
+            _lives = value;
 
-            if (playerLives > maxPlayerLives)
+        //player increse past max lives so i should set it to max lives
+            if (_lives > maxLives)
             {
-                playerLives = maxPlayerLives;
+                _lives = maxLives;
             }
 
-            if (playerLives <= 0)
+            if (_lives <= 0)
             {
-                playerLives = 0;
+                _lives = 0;
                 //Game Over
                 SceneManager.LoadScene("GameOverScene");
                 GameOver();
+
+             OnLifeValueChanged?.Invoke(_lives);
             }
         }
     }
@@ -68,6 +71,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Awake is called when the script instance is being loaded
+    void Awake()
+    {
+        if (_instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+        _lives = maxLives;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -75,19 +91,26 @@ public class GameManager : MonoBehaviour
 
         if (_instance)
         {
-           Destroy(gameObject);
-           return;
+            Destroy(gameObject);
+            return;
         }
        
             _instance = this;
             DontDestroyOnLoad(gameObject);
-            playerLives = maxPlayerLives;
+            _lives = maxLives;
+    }
 
-        //Load Static Scene before the game starts
-        //SceneManager.LoadScene("StaticScene", LoadSceneMode.Additive);
-        //SceneManager.LoadScene("UI", LoadSceneMode.Additive);
-        //SceneManager.GetActiveScene().GetRootGameObjects();
+    public void Initialize()
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+        _lives = maxLives;
     }
 
     // Update is called once per frame
@@ -98,7 +121,7 @@ public class GameManager : MonoBehaviour
            
             int buildIndex = (SceneManager.GetActiveScene().name == "GamePlayScene") ? 0 : 1;
             SceneManager.LoadScene(buildIndex);
-            //Application.Quit();
+           
         }
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -146,6 +169,14 @@ public class GameManager : MonoBehaviour
     //Function to Game Over:
     void GameOver()
     {
-       Debug.Log("Game Over Called");
+        // Check if the "GameOverScene" is added to the build settings
+        if (SceneUtility.GetBuildIndexByScenePath("Assets/Scenes/GameOverScene.unity") != -1)
+        {
+            SceneManager.LoadScene("GameOverScene");
+        }
+        else
+        {
+            Debug.LogError("GameOverScene is not added to the build settings. Please add it to the build settings to proceed.");
+        }
     }
 }

@@ -8,18 +8,13 @@ using Scene = UnityEngine.SceneManagement.Scene;
 
 public class ParallaxController : MonoBehaviour
 {
-    public Camera cam;
-    //public Transform followPlayerTarget;
-    private Transform playerTransform; //Stores player tarnsform from GameManager.
-
-    //Flag to track if initializedation is done:
+     public Camera cam;
+     private Transform playerTransform; //Stores player tarnsform from GameManager.
      public bool isInitialized = false;
+     private Vector2 canvas_StartPosition;
+     private float z_StartPosition;
 
-    //Starting Position for the parallax gameObject:
-      Vector2 canvas_StartPosition;
 
-    //Start z value of the parallax game object:
-      float z_StartPosition;
 
     //Disatnce of the camera moving from the starting position of the parallax object [How far the camera moves from the starting scene]:
       Vector2 Cam_ProgressionFromStart => (Vector2)cam.transform.position - canvas_StartPosition;
@@ -102,6 +97,7 @@ public class ParallaxController : MonoBehaviour
         //The x/y position changes based on the target parallax factor, but z starys consistent:
           transform.position = new Vector3(newPosition.x, newPosition.y, z_StartPosition);
 
+        //
         
     }
 }

@@ -13,18 +13,26 @@ public class PlayerController : MonoBehaviour
       public Rigidbody2D rb;
       public SpriteRenderer sr;
       Animator animate;
+      AudioSource audioSource;
+
+    //Audio Source Clips:
+     [SerializeField] AudioClip jumpSound;
+     [SerializeField] AudioClip attackSound;
+     [SerializeField] AudioClip runningSound;
 
 
     //Inspector vector variables:
     [SerializeField] float runSpeed = 7.0f;
     [SerializeField] float walkSpeed = 5.0f;
-    [SerializeField] float airWalkSpeed = 3.0f;
     [SerializeField] int jumpForce = 10;
+
+    [SerializeField] float airWalkSpeed = 3.0f;
+    
 
     //Ground Check:
     [SerializeField] bool isGrounded;
     [SerializeField] Transform groundCheck;
-    [SerializeField] float groundCheckRadius;
+    [SerializeField] float groundCheckRadius = 0.02f;
     [SerializeField] LayerMask isGroundLayer;
     [SerializeField] bool isGroundedTarget;
 
@@ -141,6 +149,7 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animate = GetComponent<Animator>();
         td = GetComponent<TouchingDirections>();
+        audioSource = GetComponent<AudioSource>();
   
 
         if (groundCheck == null)
@@ -165,6 +174,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if(Time.timeScale == 0) return;
+
         //Functions: 
         GroundCheck();
         MovementInput();
@@ -196,6 +207,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded && PlayerCanMove) //May have to remove PlayerCanMove variable 
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            audioSource.PlayOneShot(jumpSound);
 
             //Set Trigger of annimation for jump. 
             animate.SetTrigger("Jump");
@@ -220,6 +232,7 @@ public class PlayerController : MonoBehaviour
             if (clipInfo.Length > 0 && clipInfo[0].clip.name == "Fire")
             {
                 rb.velocity = Vector2.zero; // Stop the player's movement
+                audioSource.PlayOneShot(attackSound); // Play the attack sound
             }
             else
             {
@@ -275,7 +288,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
             Destroy(collision.gameObject);
-            GameManager.Instance.PlayerLives--;
+            GameManager.Instance.Lives--;
         }
 
         //GameObject Eneimies Takeing damage from player:

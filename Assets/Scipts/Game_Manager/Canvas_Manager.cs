@@ -89,7 +89,7 @@ public class Canvas_Manager : MonoBehaviour
         if (livesText)
         {
             GameManager.Instance.OnLifeValueChanged.AddListener(UpdateLifeText);
-            livesText.text = "Lives: " + GameManager.Instance.playerLives.ToString();
+            livesText.text = "Lives: " + GameManager.Instance.Lives.ToString();
         }
 
     }
@@ -134,30 +134,43 @@ public class Canvas_Manager : MonoBehaviour
             SetPause();
       
 
-        //hint for lab 
-        if (pauseMenu.activeSelf)
-        {
-            //do something to pause
-
-        }
-        else
-        {
-            //do something to unpause
-        }
+        ////hint for lab 
+        //if (pauseMenu.activeSelf)
+        //{
+        //    //do something to pause
+        //      Time.timeScale = 0;
+             
+        //}
+        //else
+        //{
+        //  //do something to unpause
+        //    Time.timeScale = 1;
+            
+        //}
        }
     }
 
     void SetPause()
     {
+        bool isPaused = pauseMenu.activeSelf;
+
         if (pauseMenu.activeSelf)
         {
             //do something to pause
             Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None; //unlock the cursor
         }
         else
         {
-            //do something to unpause
+          //do something to unpause
             Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked; //lock the cursor
         }
+         //Invoke event to notify other parts of the game about the paused game state.
+            OnPauseStateChange?.Invoke(isPaused);
+         //GameManager.Instance.OnGamePaused.Invoke(pauseMenu.activeSelf);
     }
+
+    public delegate void PauseStateChange(bool isPaused);
+    public static event PauseStateChange OnPauseStateChange;
 }

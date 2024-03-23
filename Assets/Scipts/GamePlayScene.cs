@@ -8,6 +8,7 @@ public class GamePlayScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         //Spawns the player at the start of the game by calling the GameManager's SpawnPlayer method.
         GameManager.Instance.SpawnPlayer(gamePlaySceneStart);
     }

@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Collectables_PickUp : MonoBehaviour
 {
+    AudioSource audioSource;
+
+
+    // Enum for the different types of pick ups
     public enum PickUp_Type
     {
         Life,
@@ -20,14 +24,15 @@ public class Collectables_PickUp : MonoBehaviour
     }
 
     [SerializeField] List<PickUpPrefab> pickUpPrefabs; // List of PickUpType to GameObject mappings
-    [SerializeField] float destroyTimer = 0;
-
+    //[SerializeField] float destroyTimer = 0.0f;
+    [SerializeField] AudioClip pickUpSound;
     // Five spawn locations within the level
     [SerializeField] Transform[] spawnLocations;
 
     private void Start()
     {
         SpawnCollectibles();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void SpawnCollectibles()
@@ -47,7 +52,9 @@ public class Collectables_PickUp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            audioSource.PlayOneShot(pickUpSound);
+            GetComponent<SpriteRenderer>().enabled = false; //Hide the collectable by turning it off
+            Destroy(gameObject, pickUpSound.length);
         }
     }
 }

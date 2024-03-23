@@ -79757,7 +79757,6 @@ GameObject:
   m_Component:
   - component: {fileID: 615100414}
   - component: {fileID: 615100415}
-  - component: {fileID: 615100416}
   m_Layer: 0
   m_Name: GamePlaySceneLevel
   m_TagString: Untagged
@@ -79796,20 +79795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamePlaySceneStart: {fileID: 870785795}
---- !u!114 &615100416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615100413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc037420302b3a7449c567dd865a44dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 519420031}
-  isInitialized: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -79907,6 +79892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 663239188}
   - component: {fileID: 663239187}
+  - component: {fileID: 663239189}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -79931,8 +79917,8 @@ MonoBehaviour:
   OnLifeValueChanged:
     m_PersistentCalls:
       m_Calls: []
+  maxLives: 5
   testScore: 1000
-  playerLives: 3
   playerScore: 0
 --- !u!4 &663239188
 Transform:
@@ -79949,6 +79935,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &663239189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663239186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc037420302b3a7449c567dd865a44dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 519420031}
+  isInitialized: 1
 --- !u!1 &674799985
 GameObject:
   m_ObjectHideFlags: 0
@@ -123823,6 +123823,7 @@ MonoBehaviour:
   spawnPLeft: {fileID: 674799986}
   spawnPRight: {fileID: 1696580400}
   projectilePrefab: {fileID: 4260944951615339533, guid: 587ed8535b9173947972ea0071b0b607, type: 3}
+  shootSound: {fileID: 0}
 --- !u!114 &1470479848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124487,10 +124488,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4519730952864043289, guid: d005ea9e14b2b344a8f8e060c3c26446, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8598849237033709744, guid: d005ea9e14b2b344a8f8e060c3c26446, type: 3}
-      propertyPath: spawnLocations.Array.size
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
